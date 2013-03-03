@@ -41,11 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AutoGame.cs" />
+    <Compile Include="AutoGameViewModel.cs" />
+    <Compile Include="AutoRL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Road.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleLib\ConsoleLib.csproj">
+      <Project>{107330ef-6c5c-4e32-be01-9cf9ed482f3b}</Project>
+      <Name>ConsoleLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Libtcod\Libtcod.csproj">
+      <Project>{d1720f2b-e116-452b-a6f9-5da63bbccb4e}</Project>
+      <Name>Libtcod</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
