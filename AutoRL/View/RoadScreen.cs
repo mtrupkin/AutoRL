@@ -10,9 +10,9 @@ namespace AutoRL
             : base(parent)
         {
 
-            var EntityDisplayControl = new EntityDisplayControl(this);
+            var RoadDisplayControl = new RoadDisplayControl(this);
 
-            AddControl(EntityDisplayControl);
+            AddControl(RoadDisplayControl);
         }        
     }
 }

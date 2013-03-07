@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\RoadDisplayControl.cs" />
     <Compile Include="Model\AutoGame.cs" />
+    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\RoadSection.cs" />
     <Compile Include="ViewModel\AutoGameViewModel.cs" />
     <Compile Include="AutoRL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
