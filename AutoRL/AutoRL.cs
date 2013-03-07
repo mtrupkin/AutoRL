@@ -17,7 +17,7 @@ namespace AutoRL
         Shell Shell { get; set; }
 
         AutoGame AutoGame { get; set; }
-        AutoGameViewModel AutoGameViewModel { get; set; }
+        MainViewModel MainViewModel { get; set; }
 
         System.Timers.Timer updateTimer;
         DateTime lastUpdateTime;
@@ -66,18 +66,14 @@ namespace AutoRL
             // intialize console
             Shell = new Libtcod.LibtcodShell("AutoRL", 160, 90);
             
-            // intialize view
-            var AutoGameScreen = new AutoGameScreen(Shell) { GrabHorizontal = true, GrabVertical = true };
 
             // initialize view model
-            AutoGameViewModel = new AutoGameViewModel()
+            MainViewModel = new MainViewModel(Shell)
             {
-                AutoGameScreen = AutoGameScreen,
                 AutoGame  = AutoGame,
             };
-            AutoGameViewModel.Initialize();
 
-            Shell.AddControl(new LayoutData(AutoGameScreen));
+            Shell.AddControl(new LayoutData(MainViewModel.MainScreen));
             Shell.Resize();
 
             // intialize game update tick
@@ -111,7 +107,7 @@ namespace AutoRL
 
             if (lastUpdateTimeSpan > updateTimeSpan)
             {
-                AutoGameViewModel.Update(lastUpdateTimeSpan.Milliseconds);
+                MainViewModel.Update(lastUpdateTimeSpan.Milliseconds);
 
                 lastUpdateTime = DateTime.Now;
             }

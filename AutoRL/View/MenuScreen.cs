@@ -1,0 +1,37 @@
+﻿using ConsoleLib;
+using ConsoleLib.Widget;
+
+namespace AutoRL
+{
+    public class MenuScreen : VerticalComposite
+    {
+        public ListWidget<Option> NewListWidget { get; set; }
+        public ListWidget<Option> ContinueListWidget { get; set; }
+
+        public MenuScreen(Composite parent)
+            : base(parent)
+        {
+
+
+            AddControl(new SpacerWidget(this, 1, 5), HorizontalJustify.Center);
+            var titleWidget = new TextWidget(this, "Auto Rogue");
+            AddControl(new BoxWidget(titleWidget, 1), HorizontalJustify.Center);
+            //AddControl(titleWidget, HorizontalJustify.Center);
+
+            var stackedComposite = new StackedComposite(this);
+            NewListWidget = new ListWidget<Option>(stackedComposite);
+            ContinueListWidget = new ListWidget<Option>(stackedComposite);
+
+
+            //stackedComposite.AddControl(new LayoutData(NewListWidget) { HorizontalJustify = HorizontalJustify.Center, VerticalJustify = VerticalJustify.Center });
+            //stackedComposite.AddControl(new LayoutData(ContinueListWidget) { HorizontalJustify = HorizontalJustify.Center, VerticalJustify = VerticalJustify.Center });
+            stackedComposite.AddControl(NewListWidget);
+            stackedComposite.AddControl(ContinueListWidget);
+
+            AddControl(new SpacerWidget(this, 1, 5), HorizontalJustify.Center);
+            //AddControl(new BoxWidget(stackedComposite, 1), HorizontalJustify.Center);
+            AddControl(stackedComposite, HorizontalJustify.Center);
+            //AddControl(ContinueListWidget);            
+        }
+    }
+}

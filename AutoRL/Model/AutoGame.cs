@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AutoRL
 {
-    class AutoGame
+    public class AutoGame
     {
-                public bool Pause { get; set; }
+        public bool Pause { get; set; }
 
         public bool Complete { get; set; }
 

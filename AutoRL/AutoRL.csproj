@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A92FAC3E-0B10-418E-9D20-590DE067BE41}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutoRL</RootNamespace>
     <AssemblyName>AutoRL</AssemblyName>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,11 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutoGame.cs" />
-    <Compile Include="AutoGameViewModel.cs" />
+    <Compile Include="Model\AutoGame.cs" />
+    <Compile Include="ViewModel\AutoGameViewModel.cs" />
     <Compile Include="AutoRL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Road.cs" />
+    <Compile Include="Model\Road.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MainMenuViewModel.cs" />
+    <Compile Include="ViewModel\RoadViewModel.cs" />
+    <Compile Include="View\AutoGameScreen.cs" />
+    <Compile Include="View\MainScreen.cs" />
+    <Compile Include="View\MenuScreen.cs" />
+    <Compile Include="View\RoadScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,6 +70,7 @@
       <Name>Libtcod</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

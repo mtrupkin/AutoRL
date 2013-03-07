@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutoRL
 {
-    class Road
+    public class RoadViewModel
     {
-        public int Update(int duration)
-        {
-            return duration;
-        }
     }
 }
