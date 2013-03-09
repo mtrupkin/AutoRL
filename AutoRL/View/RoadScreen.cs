@@ -3,16 +3,26 @@ using ConsoleLib.Widget;
 
 namespace AutoRL
 {
-    public class RoadScreen : HorizontalComposite
+    public class RoadScreen : VerticalComposite
     {
-
-         public RoadScreen(Composite parent)
+        RoadDisplayControl RoadDisplayControl { get; set; }
+        
+        public RoadScreen(Composite parent)
             : base(parent)
         {
 
-            var RoadDisplayControl = new RoadDisplayControl(this);
+            RoadDisplayControl = new RoadDisplayControl(this);
+            RoadDisplayControl.Resize(80, 60);
 
-            AddControl(RoadDisplayControl);
-        }        
+            var boxWidget = new BoxWidget(RoadDisplayControl);
+            boxWidget.Compact();
+
+            AddControl(boxWidget);
+        }
+
+        public void Bind(RoadViewModel roadViewModel)
+        {
+            RoadDisplayControl.Road = roadViewModel.Road;
+        }
     }
 }

@@ -14,11 +14,26 @@ namespace AutoRL
 
         public Road Road { get; set; }
 
+        public int MaxPhase { get; protected set; }
+        public int CurrentPhase { get; protected set; }
+
         public AutoGame()
         {
-            Pause = false;
+            Pause = true;
             Complete = false;
+
+            CurrentPhase = 1;
+            MaxPhase = 5;
+
+            Road = new Road(new Car("Mad Max"));
         }
+
+        public void Initialize()
+        {
+            Road.Initialize();
+        }
+
+        int step = 0;
 
         public int Update(int duration)
         {
@@ -26,12 +41,32 @@ namespace AutoRL
             {
                 if (!Pause)
                 {
-                    return Road.Update(duration);
+                    step += duration;
+
+                    if (step > 1000 )
+                    {
+                        step -= 1000;
+                        NextPhase();
+                    }
+
                 }
             } 
 
             return duration;
         }
+
+        public void NextPhase()
+        {
+            CurrentPhase += 1;
+            if (CurrentPhase > MaxPhase)
+            {
+                CurrentPhase = 1;
+            }
+
+            Road.UpdatePhase(CurrentPhase);
+        }
+
+
 
     }
 }

@@ -19,5 +19,12 @@ namespace AutoRL
 
             AddControl(AutoGameScreen);
         }
+
+        public void Bind(MainViewModel mainViewModel)
+        {
+
+            AutoGameScreen.Bind(mainViewModel.AutoGameViewModel);
+
+        }
     } 
 }

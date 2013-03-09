@@ -22,12 +22,12 @@ namespace AutoRL
         public void Initialize()
         {
             MenuScreen.NewListWidget.AddItem(new Option() { Name = " Create Game ", OptionHandler = NewGame });
-            MenuScreen.NewListWidget.AddItem(new Option() { Name = "Load Game", OptionHandler = LoadGame });
+            //MenuScreen.NewListWidget.AddItem(new Option() { Name = "Load Game", OptionHandler = LoadGame });
             MenuScreen.NewListWidget.AddItem(new Option() { Name = "Quit", OptionHandler = Quit });
 
-            MenuScreen.ContinueListWidget.AddItem(new Option() { Name = "Create Game", OptionHandler = NewGame });
             MenuScreen.ContinueListWidget.AddItem(new Option() { Name = " Continue Game ", OptionHandler = ContinueGame });
-            MenuScreen.ContinueListWidget.AddItem(new Option() { Name = "Load Game", OptionHandler = LoadGame });
+            MenuScreen.ContinueListWidget.AddItem(new Option() { Name = "Create Game", OptionHandler = NewGame });            
+            //MenuScreen.ContinueListWidget.AddItem(new Option() { Name = "Load Game", OptionHandler = LoadGame });
             MenuScreen.ContinueListWidget.AddItem(new Option() { Name = "Quit", OptionHandler = Quit });
 
             MenuScreen.NewListWidget.ItemSelectedEvent += new ItemSelectedEventHandler<Option>(ListControl_SelectedEvent);

@@ -68,10 +68,7 @@ namespace AutoRL
             
 
             // initialize view model
-            MainViewModel = new MainViewModel(Shell)
-            {
-                AutoGame  = AutoGame,
-            };
+            MainViewModel = new MainViewModel(Shell, AutoGame);
 
             Shell.AddControl(new LayoutData(MainViewModel.MainScreen));
             Shell.Resize();

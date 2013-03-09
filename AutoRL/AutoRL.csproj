@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\PhaseControl.cs" />
     <Compile Include="Control\RoadDisplayControl.cs" />
     <Compile Include="Model\AutoGame.cs" />
+    <Compile Include="Model\Car.cs" />
     <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\RoadSection.cs" />
     <Compile Include="ViewModel\AutoGameViewModel.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="View\MainScreen.cs" />
     <Compile Include="View\MenuScreen.cs" />
     <Compile Include="View\RoadScreen.cs" />
+    <Compile Include="View\SpeedScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

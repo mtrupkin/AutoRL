@@ -10,9 +10,11 @@ namespace AutoRL
     {
         public AutoGameViewModel AutoGameViewModel { get; set; }
         public RoadScreen RoadScreen { get; set; }
+        public Road Road { get; set; }
 
         public RoadViewModel(AutoGameViewModel autoGameViewModel) {
             AutoGameViewModel = autoGameViewModel;
+            Road = autoGameViewModel.MainViewModel.AutoGame.Road;            
         }
 
     }
