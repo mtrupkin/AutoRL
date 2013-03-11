@@ -5,7 +5,7 @@ namespace AutoRL
 {
     public class RoadScreen : VerticalComposite
     {
-        RoadDisplayControl RoadDisplayControl { get; set; }
+        public RoadDisplayControl RoadDisplayControl { get; set; }
         
         public RoadScreen(Composite parent)
             : base(parent)
@@ -17,7 +17,7 @@ namespace AutoRL
             var boxWidget = new BoxWidget(RoadDisplayControl);
             boxWidget.Compact();
 
-            AddControl(boxWidget);
+            AddControl(RoadDisplayControl);
         }
 
         public void Bind(RoadViewModel roadViewModel)

@@ -7,6 +7,8 @@ using ConsoleLib;
 
 namespace AutoRL
 {
+    
+
     public class AutoGameViewModel
     {
         public MainViewModel MainViewModel { get; set; }
@@ -40,7 +42,63 @@ namespace AutoRL
                 case ConsoleKey.Spacebar:
                     TogglePause();
                     break;
+                case ConsoleKey.A:
+                    Accelerate();
+                    break;
+                case ConsoleKey.Z:
+                    Decelerate();
+                    break;
+                case ConsoleKey.X:
+                    Decelerate2();
+                    break;
+                case ConsoleKey.LeftArrow:
+                    Move(Direction.Left);
+                    break;
+                case ConsoleKey.RightArrow:
+                    Move(Direction.Right);
+                    break;
+                case ConsoleKey.UpArrow:
+                    Move(Direction.Forwards);
+                    break;
+                case ConsoleKey.DownArrow:
+                    Move(Direction.Backwards);
+                    break;
 
+            }
+        }
+
+        public void Move(Direction direction) 
+        {
+            MainViewModel.AutoGame.Road.Player.Move(direction);
+            MainViewModel.AutoGame.NextPhase();
+        }
+
+
+        public void Accelerate()
+        {
+            bool ok = MainViewModel.AutoGame.Road.Player.Accelerate();
+
+            if (ok)
+            {
+                MainViewModel.AutoGame.NextPhase();
+            }
+        }
+
+        public void Decelerate()
+        {
+            bool ok = MainViewModel.AutoGame.Road.Player.Decelerate();
+            if (ok)
+            {
+                MainViewModel.AutoGame.NextPhase();
+            }
+        }
+
+        public void Decelerate2()
+        {
+            bool ok = MainViewModel.AutoGame.Road.Player.Decelerate2();
+            if (ok)
+            {
+                MainViewModel.AutoGame.NextPhase();
             }
         }
 
@@ -52,6 +110,7 @@ namespace AutoRL
         public void Update(int duration)
         {
             AutoGameScreen.SpeedScreen.PhaseControl.CurrentPhase = MainViewModel.AutoGame.CurrentPhase;
+            AutoGameScreen.SpeedScreen.SetSpeed(MainViewModel.AutoGame.Road.Player.Speed);                        
         }         
     }
 

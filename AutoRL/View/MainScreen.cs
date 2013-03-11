@@ -11,9 +11,9 @@ namespace AutoRL
             : base(parent)
         {
 
-            MenuScreen = new MenuScreen(parent) { GrabHorizontal = true, GrabVertical = true };
+            MenuScreen = new MenuScreen(this) { GrabHorizontal = true, GrabVertical = true };
 
-            AutoGameScreen = new AutoGameScreen(parent) { GrabHorizontal = true, GrabVertical = false };
+            AutoGameScreen = new AutoGameScreen(this) { GrabHorizontal = true, GrabVertical = false };
 
             AddControl(new LayoutData(MenuScreen) { VerticalJustify = VerticalJustify.Center });
 

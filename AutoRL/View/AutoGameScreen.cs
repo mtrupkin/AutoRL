@@ -11,12 +11,17 @@ namespace AutoRL
         public AutoGameScreen(Composite parent)
             : base(parent)
         {
+            SpeedScreen = new SpeedScreen(this) { GrabHorizontal = false, GrabVertical = true };
+            //var speedBox = new BoxWidget(SpeedScreen);
+            //speedBox.Compact();
 
-            SpeedScreen = new SpeedScreen(parent) { GrabHorizontal = false, GrabVertical = true };
-            RoadScreen = new RoadScreen(parent) { GrabHorizontal = true, GrabVertical = true };
+            RoadScreen = new RoadScreen(this) { GrabHorizontal = true, GrabVertical = true };
+            var roadBox = new BoxWidget(RoadScreen);
+            roadBox.Compact();
 
             AddControl(SpeedScreen);
-            AddControl(RoadScreen);
+            AddControl(roadBox);
+            
         }
 
         public void Bind(AutoGameViewModel autoGameViewModel)

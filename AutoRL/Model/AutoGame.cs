@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace AutoRL
 {
+    public enum Direction { Forwards, Backwards, Left, Right };
+
     public class AutoGame
     {
         public bool Pause { get; set; }
@@ -22,8 +24,8 @@ namespace AutoRL
             Pause = true;
             Complete = false;
 
-            CurrentPhase = 1;
-            MaxPhase = 5;
+            CurrentPhase = 0;
+            MaxPhase = 9;
 
             Road = new Road(new Car("Mad Max"));
         }
@@ -34,6 +36,7 @@ namespace AutoRL
         }
 
         int step = 0;
+        int timeStep = 5000;
 
         public int Update(int duration)
         {
@@ -43,9 +46,9 @@ namespace AutoRL
                 {
                     step += duration;
 
-                    if (step > 1000 )
+                    if (step > timeStep)
                     {
-                        step -= 1000;
+                        step -= timeStep;
                         NextPhase();
                     }
 
@@ -60,13 +63,40 @@ namespace AutoRL
             CurrentPhase += 1;
             if (CurrentPhase > MaxPhase)
             {
-                CurrentPhase = 1;
+                CurrentPhase = 0;
             }
 
             Road.UpdatePhase(CurrentPhase);
+            step = 0;
         }
 
+        static int[,] phases = new int[10, 10] {
+//           0  1  2  3  4  5  6  7  8  9
+            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, // 0
+            {0, 0, 0, 0, 0, 1, 0, 0, 0, 0}, // 1
+            {0, 0, 0, 1, 0, 0, 0, 1, 0, 0}, // 2
+            {0, 0, 1, 0, 0, 1, 0, 0, 1, 0}, // 3
+            {0, 1, 0, 1, 0, 0, 1, 0, 1, 0}, // 4
+            {0, 1, 0, 1, 0, 1, 0, 1, 0, 1}, // 5           
+            {1, 0, 1, 0, 1, 0, 1, 0, 1, 1}, // 6
+            {1, 0, 1, 0, 1, 1, 1, 0, 1, 1}, // 7
+            {1, 0, 1, 1, 1, 1, 1, 0, 1, 1}, // 8
+            {1, 0, 1, 1, 1, 1, 1, 1, 1, 1}, // 9
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 10
+        };
 
+        public static bool ManditoryMovementPhase(int phase, int speed)
+        {
+            if (speed > 0)
+            {
+                if (phases[speed - 1, phase] == 1)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
     }
 }

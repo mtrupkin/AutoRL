@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace AutoRL
 {
     public class Road
     {
-        int[,] tiles;
+     //   int[,] tiles;
 
 
         int Height { get; set; }
@@ -16,6 +17,8 @@ namespace AutoRL
 
         int Height2 { get { return Height / 2; } }
         int Width2 { get { return Width / 2; } }
+         
+        Dictionary<Point, RoadSection> RoadSections { get; set; }
 
         public Car Player { get; set; }
 
@@ -23,8 +26,8 @@ namespace AutoRL
         int X { get { return Player.X; } }
         int Y { get { return Player.Y; } }
 
-        public int this[int x, int y]    // Indexer declaration
-                                         // x,y is relative to car                                        
+        // x,y is relative to car                                        
+        public int this[int x, int y]                                           
         {
             get {
                 if ((x == 0) && (y == 0))
@@ -37,9 +40,27 @@ namespace AutoRL
 
                     TransformToMap(x, y, out x1, out y1);
 
-                    return tiles[x1, y1] ;
+                    var roadSection = GetRoadSection(x1, y1);
+
+                    return roadSection[x1 % 100, y1 % 100];
                 }
             }
+        }
+
+        public RoadSection GetRoadSection(int x, int y)
+        {
+            Point roadSectionPoint = new Point(x / 100, y / 100);
+
+            RoadSection roadSection;
+            RoadSections.TryGetValue(roadSectionPoint, out roadSection);
+
+            if (roadSection == null)
+            {
+                roadSection = new RoadSection();
+                RoadSections[roadSectionPoint] = roadSection;
+            }
+
+            return roadSection;
         }
 
         public void TransformToRoad(int x, int y, out int x1, out int y1)
@@ -60,47 +81,19 @@ namespace AutoRL
         {
             Player = player;
 
-            Height = 2000;
-            Width = 100;
+            Height = 100 * 100;
+            Width = 100 * 100;
 
-            tiles = new int[Width, Height];
+            RoadSections = new Dictionary<Point, RoadSection>();
 
-            Initialize();
         }
 
         public void Initialize()
         {
-            Reset();
-            Randomize();
+            RoadSections.Clear();
         }
 
-        void Reset()
-        {
-            for (int i = 0; i < Width; i++)
-            {
-                for (int j = 0; j < Height; j++)
-                {
-                    tiles[i, j] = 0;
-                }
-            }
-
-        }
-
-        public void Randomize()
-        {
-            int items = 2000;
-            int x, y = 0;
-            Random rnd = new Random();
-
-            for (int i = 0; i < items; i++ ) {
-                x = rnd.Next(Width);
-                y = rnd.Next(Height);
-
-                tiles[x, y] = 1;
-            }
-
-        }
-
+     
         public void UpdatePhase(int phase)
         {
             Player.UpdatePhase(phase);
