@@ -42,42 +42,138 @@ namespace AutoRL
 
             Reset();
             Randomize();
+            DrawEntrances();
         }
 
         protected void SetEntrances(RoadSection top, RoadSection right, RoadSection bottom, RoadSection left)
         {
+            Random rnd = new Random();
+            int chance = 0;
+
             if ((top.Entrances & Side.Bottom) == Side.Bottom)
             {
                 Entrances &= Side.Top;
+                chance = rnd.Next(100);
+                if (chance < 70)
+                {
+                    Entrances &= Side.Bottom;
+                }
             }
 
             if ((right.Entrances & Side.Left) == Side.Left)
             {
                 Entrances &= Side.Right;
+                chance = rnd.Next(100);
+                if (chance < 70)
+                {
+                    Entrances &= Side.Left;
+                }
+   
             }
 
             if ((bottom.Entrances & Side.Top) == Side.Top)
             {
                 Entrances &= Side.Bottom;
+                chance = rnd.Next(100);
+                if (chance < 70)
+                {
+                    Entrances &= Side.Top;
+                }
+   
             }
 
             if ((left.Entrances & Side.Right) == Side.Right)
             {
                 Entrances &= Side.Left;
+                chance = rnd.Next(100);
+                if (chance < 70)
+                {
+                    Entrances &= Side.Right;
+                }
+   
             }
         }
 
+        void DrawEntrances()
+        {
+            if ((Entrances & Side.Bottom) == Side.Bottom)
+            {
+                DrawBottomEntrance();
+            }
+
+            if ((Entrances & Side.Left) == Side.Left)
+            {
+                DrawLeftEntrance();
+            }
+
+            if ((Entrances & Side.Top) == Side.Top)
+            {
+                DrawTopEntrance();
+            }
+
+            if ((Entrances & Side.Right) == Side.Right)
+            {
+                DrawRightEntrance();
+            }
+        }
+
+        int RoadWidth = 20;
+
         protected void DrawTopEntrance()
         {
-            int width = 20;
+            
             int height = Height/2;
-
-
-
-
+            int offset = (Width - RoadWidth) / 2;
+            for (int i = 0; i < RoadWidth; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    tiles[i + offset, j] = 2;
+                }
+            }
         }
-      
 
+        protected void DrawBottomEntrance()
+        {
+
+            int height = Height / 2;
+            int offset = (Width - RoadWidth) / 2;
+            for (int i = 0; i < RoadWidth; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    tiles[i + offset, j + height] = 2;
+                }
+            }
+        }
+        protected void DrawLeftEntrance()
+        {
+
+            int height = Height / 2;
+            int offset = (Width - RoadWidth) / 2;
+            for (int i = 0; i < RoadWidth; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    tiles[j, i + offset] = 2;
+                }
+            }
+        }
+
+        protected void DrawRightEntrance()
+        {
+
+            int height = Height / 2;
+            int offset = (Width - RoadWidth) / 2;
+            for (int i = 0; i < RoadWidth; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    tiles[j + height, i + offset] = 2;
+                }
+            }
+        }
+ 
         void Reset()
         {
             for (int i = 0; i < Width; i++)
@@ -95,7 +191,11 @@ namespace AutoRL
             int items = 200;
             int x, y = 0;
             Random rnd = new Random();
+            int sideNum = rnd.Next(4);
 
+            Side side = GetSide(sideNum);
+            Entrances &= side;
+            
             for (int i = 0; i < items; i++ ) {
                 x = rnd.Next(Width);
                 y = rnd.Next(Height);
@@ -103,6 +203,29 @@ namespace AutoRL
                 tiles[x, y] = 1;
             }
 
+        }
+
+        Side GetSide(int sideNum)
+        {
+            Side side = Side.Top;
+            switch (sideNum)
+            {
+                case 0:
+                    side = Side.Top;
+                    break;
+                case 1:
+                    side = Side.Right;
+                    break;
+                case 2:
+                    side = Side.Bottom;
+                    break;
+                case 3:
+                    side = Side.Left;
+                    break;
+
+
+            }
+            return side;
         }
 
     }
