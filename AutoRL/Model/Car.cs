@@ -12,8 +12,10 @@ namespace AutoRL
         public string Name { get; protected set; }
         public int Speed { get; set; }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public double Heading { get; set; }
+
+        public double X { get; set; }
+        public double Y { get; set; }
 
         public Car(String name)
         {
@@ -26,8 +28,22 @@ namespace AutoRL
         {
             if (AutoGame.ManditoryMovementPhase(phase, Speed))
             {
-                Y += 1;
+                X += Math.Sin(Heading);
+                Y += Math.Cos(Heading);
+                
             }
+        }
+
+        double turnRadius = Math.PI / 8;
+
+        public void TurnLeft()
+        {
+            Heading -= turnRadius;
+        }
+
+        public void TurnRight()
+        {
+            Heading += turnRadius;
         }
 
         public bool Move(Direction direction)

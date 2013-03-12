@@ -36,7 +36,7 @@ namespace AutoRL
         }
 
         int step = 0;
-        int timeStep = 5000;
+        int timeStep = 50;
 
         public int Update(int duration)
         {

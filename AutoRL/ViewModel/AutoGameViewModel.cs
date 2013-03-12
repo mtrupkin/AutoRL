@@ -42,14 +42,20 @@ namespace AutoRL
                 case ConsoleKey.Spacebar:
                     TogglePause();
                     break;
-                case ConsoleKey.A:
+                case ConsoleKey.W:
                     Accelerate();
                     break;
-                case ConsoleKey.Z:
+                case ConsoleKey.S:
                     Decelerate();
                     break;
                 case ConsoleKey.X:
                     Decelerate2();
+                    break;
+                case ConsoleKey.A:
+                    TurnLeft();
+                    break;
+                case ConsoleKey.D:
+                    TurnRight();
                     break;
                 case ConsoleKey.LeftArrow:
                     Move(Direction.Left);
@@ -70,6 +76,18 @@ namespace AutoRL
         public void Move(Direction direction) 
         {
             MainViewModel.AutoGame.Road.Player.Move(direction);
+            MainViewModel.AutoGame.NextPhase();
+        }
+
+        public void TurnLeft()
+        {
+            MainViewModel.AutoGame.Road.Player.TurnLeft();
+            MainViewModel.AutoGame.NextPhase();
+        }
+
+        public void TurnRight()
+        {
+            MainViewModel.AutoGame.Road.Player.TurnRight();
             MainViewModel.AutoGame.NextPhase();
         }
 

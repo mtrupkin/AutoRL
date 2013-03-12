@@ -15,21 +15,26 @@ namespace AutoRL
         public SpeedScreen(Composite parent)
             : base(parent)
         {
+            var spacer1 = new SpacerWidget(this, 1, 1);
+            var phaseLabel = new TextWidget(this, "Phase");
+
             PhaseControl = new PhaseControl(this) ;
             var phaseBox = new BoxWidget(PhaseControl);
             phaseBox.Compact();
 
-            var spacer = new SpacerWidget(this, 1, 1);
-            SpeedDisplay = new TextWidget(this, "Spd: 100");
+            var spacer2 = new SpacerWidget(this, 1, 1);
+            SpeedDisplay = new TextWidget(this, " Spd: 000 ");
 
+            AddControl(spacer1);
+            AddControl(phaseLabel, HorizontalJustify.Center);
             AddControl(phaseBox, HorizontalJustify.Center);
-            AddControl(spacer);
+            AddControl(spacer2);
             AddControl(SpeedDisplay);
         }
 
         public void SetSpeed(int speed)
         {
-            string str = String.Format("Spd: {0,3}", speed * 10);
+            string str = String.Format(" Spd: {0,3} ", speed * 10);
             SpeedDisplay.SetText(str);
 
             PhaseControl.Speed = speed;

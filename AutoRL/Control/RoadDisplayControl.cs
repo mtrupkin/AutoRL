@@ -29,7 +29,7 @@ namespace AutoRL
                 int x1 = 0;
                 int y1 = 0;
 
-
+                Screen.Clear();
                 for (x = 0; x < Width; x++)
                 {
                     for (y = 0; y < Height; y++)
@@ -44,10 +44,16 @@ namespace AutoRL
                                 Screen.Write('@');
                                 break;
                             case 1:
+                                Screen.Write('*');
+                                break;
+                            case 2:
                                 Screen.Write('.');
                                 break;
+                            case 3:
+                                //Screen.Write(' ');
+                                break;
                             case 0:
-                                Screen.Write(' ');
+                                //Screen.Write(' ');
                                 break;
 
                         }

@@ -38,59 +38,83 @@ namespace AutoRL
 
         public void Initialize(RoadSection top, RoadSection right, RoadSection bottom, RoadSection left)
         {
-            SetEntrances(top, right, bottom, left);
-
             Reset();
+
+            SetEntrances(top, right, bottom, left);            
             Randomize();
             DrawEntrances();
+            Hollow();
         }
 
-        protected void SetEntrances(RoadSection top, RoadSection right, RoadSection bottom, RoadSection left)
+        public void InitializeCrossRoad()
+        {
+            Reset();
+
+            Entrances |= Side.Top | Side.Right | Side.Bottom | Side.Left;
+
+            Randomize();
+            DrawEntrances();
+            Hollow();
+        }
+
+        protected bool HasSide(Side entrance, Side side)
+        {
+            if ((entrance & side) == side)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        protected Side OppositeSide(Side side)
+        {
+            switch (side)
+            {
+                case Side.Top: return Side.Bottom;
+                case Side.Right: return Side.Left;
+                case Side.Bottom: return Side.Top;
+                case Side.Left: return Side.Right;
+
+            }
+
+            return Side.Top;
+        }
+
+        protected void SetEntrance(Side entrance, Side side)
         {
             Random rnd = new Random();
             int chance = 0;
 
-            if ((top.Entrances & Side.Bottom) == Side.Bottom)
+            if (HasSide(entrance, side))
             {
-                Entrances &= Side.Top;
+                Entrances |= OppositeSide(side);
                 chance = rnd.Next(100);
-                if (chance < 70)
+                //if (chance < 95)
                 {
-                    Entrances &= Side.Bottom;
+                    Entrances |= side;
                 }
             }
 
-            if ((right.Entrances & Side.Left) == Side.Left)
-            {
-                Entrances &= Side.Right;
-                chance = rnd.Next(100);
-                if (chance < 70)
-                {
-                    Entrances &= Side.Left;
-                }
-   
-            }
+        }
 
-            if ((bottom.Entrances & Side.Top) == Side.Top)
-            {
-                Entrances &= Side.Bottom;
-                chance = rnd.Next(100);
-                if (chance < 70)
-                {
-                    Entrances &= Side.Top;
-                }
-   
-            }
+        protected void SetEntrances(RoadSection top, RoadSection right, RoadSection bottom, RoadSection left)
+        {
 
-            if ((left.Entrances & Side.Right) == Side.Right)
+            if (top != null)
             {
-                Entrances &= Side.Left;
-                chance = rnd.Next(100);
-                if (chance < 70)
-                {
-                    Entrances &= Side.Right;
-                }
-   
+                SetEntrance(top.Entrances, Side.Bottom);
+            }
+            if (right != null)
+            {
+                SetEntrance(right.Entrances, Side.Left);
+            }
+            if (bottom != null)
+            {
+                SetEntrance(bottom.Entrances, Side.Top);
+            }
+            if (left != null)
+            {
+                SetEntrance(left.Entrances, Side.Right);
             }
         }
 
@@ -194,7 +218,8 @@ namespace AutoRL
             int sideNum = rnd.Next(4);
 
             Side side = GetSide(sideNum);
-            Entrances &= side;
+            Entrances |= side;
+            //Entrances |= Side.Top;
             
             for (int i = 0; i < items; i++ ) {
                 x = rnd.Next(Width);
@@ -226,6 +251,37 @@ namespace AutoRL
 
             }
             return side;
+        }
+
+        protected void Hollow()
+        {
+            for (int i = 0; i < Width; i++)
+            {
+                for (int j = 0; j < Height; j++)
+                {
+                    bool isSurrounded = false;
+                    if (IsRoad(i,j) && IsRoad(i - 1, j) && IsRoad(i + 1, j) && IsRoad(i, j - 1)  && IsRoad(i, j + 1) )
+                    {
+                        isSurrounded = true;
+                    }
+                    
+                    if (isSurrounded)
+                    {
+                        tiles[i, j] = 3;
+                    }
+                }
+            }
+        }
+
+        bool IsRoad(int x, int y)        
+        {
+            if ( (x < 0 || y < 0) || ( x >= Width) || ( y >= Height) ) 
+            {
+                return true;
+            }
+
+            int tile = tiles[x, y];
+            return (tile == 2) || (tile == 3);
         }
 
     }
