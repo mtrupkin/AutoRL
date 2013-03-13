@@ -75,20 +75,23 @@ namespace AutoRL
 
         public void Move(Direction direction) 
         {
-            MainViewModel.AutoGame.Road.Player.Move(direction);
             MainViewModel.AutoGame.NextPhase();
+            MainViewModel.AutoGame.Road.Player.Move(direction);
+            
         }
 
         public void TurnLeft()
         {
-            MainViewModel.AutoGame.Road.Player.TurnLeft();
             MainViewModel.AutoGame.NextPhase();
+            MainViewModel.AutoGame.Road.Player.TurnLeft();
+            
         }
 
         public void TurnRight()
         {
-            MainViewModel.AutoGame.Road.Player.TurnRight();
             MainViewModel.AutoGame.NextPhase();
+            MainViewModel.AutoGame.Road.Player.TurnRight();
+            
         }
 
 
@@ -128,7 +131,8 @@ namespace AutoRL
         public void Update(int duration)
         {
             AutoGameScreen.SpeedScreen.PhaseControl.CurrentPhase = MainViewModel.AutoGame.CurrentPhase;
-            AutoGameScreen.SpeedScreen.SetSpeed(MainViewModel.AutoGame.Road.Player.Speed);                        
+            AutoGameScreen.SpeedScreen.SetSpeed(MainViewModel.AutoGame.Road.Player.Speed);
+            AutoGameScreen.CarScreen.SetCar(MainViewModel.AutoGame.Road.Player);                        
         }         
     }
 

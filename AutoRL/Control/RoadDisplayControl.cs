@@ -36,29 +36,39 @@ namespace AutoRL
                     {
                         ToRoadCoords(x, y, out x1, out y1);
                         Screen.SetPosition(x, y);
-                        int tile = Road[x1, y1];
+                        RoadTile tile = Road[x1, y1];
 
                         switch (tile)
                         {
-                            case -1:
-                                Screen.Write('@');
-                                break;
-                            case 1:
+                            case RoadTile.Rock:
                                 Screen.Write('*');
                                 break;
-                            case 2:
+                            case RoadTile.Paint:
                                 Screen.Write('.');
                                 break;
-                            case 3:
+                            //case 3:
                                 //Screen.Write(' ');
-                                break;
-                            case 0:
+                                //break;
+                            //case 0:
                                 //Screen.Write(' ');
-                                break;
+                                //break;
 
                         }
 
+                        if (x1 == 0 && y1 == 0)
+                        {
+                            Screen.Write('@');
+                        }
                     }
+                }
+
+                foreach (Car enemy in Road.Enemies)
+                {
+                    x = enemy.X1;
+                    y = enemy.Y1;
+                    FromRoadCoords(x, y, out x1, out y1);
+                    Screen.SetPosition(x1, y1);
+                    Screen.Write('K');
                 }
             }
         }
@@ -67,6 +77,17 @@ namespace AutoRL
         {
             x1 = x - CarOffsetWidth;
             y1 = (CarOffsetHeigthAbove) - y;
+        }
+
+        void FromRoadCoords(int x, int y, out int x1, out int y1)
+        {
+            //x1 = x;
+            //y1 = y;
+            x1 = x - Road.Player.X1;
+            y1 = y - Road.Player.Y1 ;
+
+            //x1 = x - CarOffsetWidth;
+            //y1 = (CarOffsetHeigthAbove) - y;
         }
 
     }

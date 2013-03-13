@@ -6,7 +6,8 @@ namespace AutoRL
     public class AutoGameScreen : HorizontalComposite
     {
         public SpeedScreen SpeedScreen { get; set; }
-        public RoadScreen RoadScreen { get; set; }        
+        public RoadScreen RoadScreen { get; set; }
+        public CarScreen CarScreen { get; set; }   
 
         public AutoGameScreen(Composite parent)
             : base(parent)
@@ -19,8 +20,14 @@ namespace AutoRL
             var roadBox = new BoxWidget(RoadScreen);
             roadBox.Compact();
 
+
+            CarScreen = new CarScreen(this) { GrabHorizontal = true, GrabVertical = true };
+            var carBox = new BoxWidget(CarScreen);
+            carBox.Compact();
+
             AddControl(SpeedScreen);
             AddControl(roadBox);
+            AddControl(carBox);
             
         }
 

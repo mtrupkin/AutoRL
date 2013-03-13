@@ -9,18 +9,25 @@ namespace AutoRL
     [Flags]
     public enum Side { Top = 1, Right = 2, Bottom = 4, Left = 8 };
 
+    public enum RoadTile { Rock, Paint, Road, Dirt }
+
     public class RoadSection {
-        int[,] tiles;
+        RoadTile[,] tiles;
 
 
         int Height { get; set; }
         int Width { get; set; }
         public Side Entrances { get; set; }
 
-        public int this[int x, int y]    
+        public RoadTile this[int x, int y]    
         {
             get
             {
+                //if ((x >= Width) || (y >= Height))
+                //{
+                //    return 0;
+                //}
+
                 return tiles[x, y];
             }
         }
@@ -32,7 +39,7 @@ namespace AutoRL
             Height = 100;
             Width = 100;
 
-            tiles = new int[Width, Height];
+            tiles = new RoadTile[Width, Height];
 
         }
 
@@ -152,7 +159,7 @@ namespace AutoRL
             {
                 for (int j = 0; j < height; j++)
                 {
-                    tiles[i + offset, j] = 2;
+                    tiles[i + offset, j] = RoadTile.Paint;
                 }
             }
         }
@@ -166,7 +173,7 @@ namespace AutoRL
             {
                 for (int j = 0; j < height; j++)
                 {
-                    tiles[i + offset, j + height] = 2;
+                    tiles[i + offset, j + height] = RoadTile.Paint;
                 }
             }
         }
@@ -179,7 +186,7 @@ namespace AutoRL
             {
                 for (int j = 0; j < height; j++)
                 {
-                    tiles[j, i + offset] = 2;
+                    tiles[j, i + offset] = RoadTile.Paint;
                 }
             }
         }
@@ -193,7 +200,7 @@ namespace AutoRL
             {
                 for (int j = 0; j < height; j++)
                 {
-                    tiles[j + height, i + offset] = 2;
+                    tiles[j + height, i + offset] = RoadTile.Paint;
                 }
             }
         }
@@ -204,10 +211,9 @@ namespace AutoRL
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    tiles[i, j] = 0;
+                    tiles[i, j] = RoadTile.Dirt;
                 }
             }
-
         }
 
         public void Randomize()
@@ -225,9 +231,8 @@ namespace AutoRL
                 x = rnd.Next(Width);
                 y = rnd.Next(Height);
 
-                tiles[x, y] = 1;
+                tiles[x, y] = RoadTile.Rock;
             }
-
         }
 
         Side GetSide(int sideNum)
@@ -247,8 +252,6 @@ namespace AutoRL
                 case 3:
                     side = Side.Left;
                     break;
-
-
             }
             return side;
         }
@@ -267,7 +270,7 @@ namespace AutoRL
                     
                     if (isSurrounded)
                     {
-                        tiles[i, j] = 3;
+                        tiles[i, j] = RoadTile.Road;
                     }
                 }
             }
@@ -280,8 +283,8 @@ namespace AutoRL
                 return true;
             }
 
-            int tile = tiles[x, y];
-            return (tile == 2) || (tile == 3);
+            RoadTile tile = tiles[x, y];
+            return (tile == RoadTile.Road) || (tile == RoadTile.Paint);
         }
 
     }

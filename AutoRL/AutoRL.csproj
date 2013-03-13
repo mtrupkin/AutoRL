@@ -49,7 +49,9 @@
     <Compile Include="Control\RoadDisplayControl.cs" />
     <Compile Include="Model\AutoGame.cs" />
     <Compile Include="Model\Car.cs" />
+    <Compile Include="Model\Dice.cs" />
     <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\Names.cs" />
     <Compile Include="Model\RoadSection.cs" />
     <Compile Include="ViewModel\AutoGameViewModel.cs" />
     <Compile Include="AutoRL.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="ViewModel\MainMenuViewModel.cs" />
     <Compile Include="ViewModel\RoadViewModel.cs" />
     <Compile Include="View\AutoGameScreen.cs" />
+    <Compile Include="View\CarScreen.cs" />
     <Compile Include="View\MainScreen.cs" />
     <Compile Include="View\MenuScreen.cs" />
     <Compile Include="View\RoadScreen.cs" />

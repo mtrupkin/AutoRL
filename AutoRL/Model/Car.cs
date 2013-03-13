@@ -17,33 +17,48 @@ namespace AutoRL
         public double X { get; set; }
         public double Y { get; set; }
 
+        public int X1 { get { return (int)Math.Floor(X); } }
+        public int Y1 { get { return (int)Math.Floor(Y); } }
+
+        public int Armor { get; set; }
+
         public Car(String name)
         {
             Name = name;
             Speed = 7;
             MaxSpeed = 10;
+
+            Heading = Math.PI / 2;
+
+            Armor = 50;
         }
 
         public void UpdatePhase(int phase)
         {
             if (AutoGame.ManditoryMovementPhase(phase, Speed))
             {
-                X += Math.Sin(Heading);
-                Y += Math.Cos(Heading);
-                
+                ManditoryMovement();
             }
+            // ManditoryMovement()
         }
 
-        double turnRadius = Math.PI / 8;
+        void ManditoryMovement()
+        {
+            X += Math.Cos(Heading);
+            Y += Math.Sin(Heading);
+        }
+
+
+        double turnRadius = Math.PI / 32;
 
         public void TurnLeft()
         {
-            Heading -= turnRadius;
+            Heading += turnRadius;
         }
 
         public void TurnRight()
         {
-            Heading += turnRadius;
+            Heading -= turnRadius;
         }
 
         public bool Move(Direction direction)
@@ -92,5 +107,13 @@ namespace AutoRL
             Decelerate();
             return ok;
         }
+
+        public void Collision()
+        {
+            int damage = Dice.D6(Speed);
+            Armor -= damage;
+            Speed = 0;
+        }
+
     }
 }
