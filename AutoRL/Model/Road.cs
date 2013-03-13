@@ -265,14 +265,15 @@ namespace AutoRL
 
         public void UpdatePhase(int phase)
         {
-            Player.UpdatePhase(phase);
+            bool moved = Player.UpdatePhase(phase);
 
-            if (RoadTile.Rock == this[0, 0])
+            if (moved)
             {
-                Player.Collision();
+                if (RoadTile.Rock == this[0, 0])
+                {
+                    Player.Collision();
+                }
             }
-
-
         }
 
     }

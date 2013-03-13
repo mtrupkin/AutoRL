@@ -41,7 +41,7 @@ namespace AutoRL
                         switch (tile)
                         {
                             case RoadTile.Rock:
-                                Screen.Write('*');
+                                Screen.Write(',');
                                 break;
                             case RoadTile.Paint:
                                 Screen.Write('.');

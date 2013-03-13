@@ -33,12 +33,14 @@ namespace AutoRL
             Armor = 50;
         }
 
-        public void UpdatePhase(int phase)
+        public bool UpdatePhase(int phase)
         {
             if (AutoGame.ManditoryMovementPhase(phase, Speed))
             {
                 ManditoryMovement();
+                return true;
             }
+            return false;
             // ManditoryMovement()
         }
 
@@ -49,7 +51,7 @@ namespace AutoRL
         }
 
 
-        double turnRadius = Math.PI / 32;
+        double turnRadius = Math.PI / 8;
 
         public void TurnLeft()
         {
