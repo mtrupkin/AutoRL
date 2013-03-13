@@ -241,11 +241,8 @@ namespace AutoRL
 
         void GenerateEnemy(Point roadSection)
         {
-            //int x = Dice.D100() - 1;
-            //int y = Dice.D100() - 1;
-
-            int x = 52;
-            int y = 52;            
+            int x = Dice.D100() - 1;
+            int y = Dice.D100() - 1;
 
             Car enemy = new Car(Names.GenerateName());
 
