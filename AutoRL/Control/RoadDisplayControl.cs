@@ -52,7 +52,6 @@ namespace AutoRL
                             //case 0:
                                 //Screen.Write(' ');
                                 //break;
-
                         }
 
                         if (x1 == 0 && y1 == 0)
@@ -85,6 +84,9 @@ namespace AutoRL
             //y1 = y;
             x1 = x - Road.Player.X1;
             y1 = y - Road.Player.Y1 ;
+
+            x1 = x1 + CarOffsetWidth;
+            y1 = (CarOffsetHeigthAbove) - y1;
 
             //x1 = x - CarOffsetWidth;
             //y1 = (CarOffsetHeigthAbove) - y;
