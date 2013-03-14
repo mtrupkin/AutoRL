@@ -54,7 +54,7 @@ namespace AutoRL
                                 //break;
                         }
 
-                        if (x1 == 0 && y1 == 0)
+                        if (x == CarOffsetWidth && y == CarOffsetHeigthAbove)
                         {
                             Screen.Write('@');
                         }
@@ -74,8 +74,15 @@ namespace AutoRL
 
         void ToRoadCoords(int x, int y, out int x1, out int y1)
         {
+
+
             x1 = x - CarOffsetWidth;
             y1 = (CarOffsetHeigthAbove) - y;
+
+            x1 = Road.Player.X1 + x1;
+            y1 = Road.Player.Y1 + y1;
+
+
         }
 
         void FromRoadCoords(int x, int y, out int x1, out int y1)

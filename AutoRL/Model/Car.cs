@@ -33,7 +33,7 @@ namespace AutoRL
             Armor = 50;
         }
 
-        public bool UpdatePhase(int phase)
+        public virtual bool UpdatePhase(int phase)
         {
             if (AutoGame.ManditoryMovementPhase(phase, Speed))
             {

@@ -24,7 +24,7 @@ namespace AutoRL
 
         public Car Player { get; set; }
 
-        public List<Car> Enemies { get; set; }
+        public List<EnemyCar> Enemies { get; set; }
 
         // car location
         double X { get { return Player.X; } }
@@ -117,8 +117,8 @@ namespace AutoRL
             //x2 = (x1 + X);
             //y2 = (y1 + Y);
 
-            x2 = (x + X);
-            y2 = (y + Y);
+            x2 = x;// (x + X);
+            y2 = y;// (y + Y);
 
             //
 
@@ -193,12 +193,12 @@ namespace AutoRL
             Player = player;
 
             Player.X = 50;
-            Player.Y = 50;
+            Player.Y = -50;
 
             Height = 100 * 100;
             Width = 100 * 100;
 
-            Enemies = new List<Car>();
+            Enemies = new List<EnemyCar>();
 
             RoadSections = new Dictionary<Point, RoadSection>();
             InitializeSideOffsets();
@@ -244,7 +244,7 @@ namespace AutoRL
             int x = Dice.D100() - 1;
             int y = Dice.D100() - 1;
 
-            Car enemy = new Car(Names.GenerateName());
+            EnemyCar enemy = new EnemyCar(Names.GenerateName());
 
             x = roadSection.X * 100 + x;
             y = roadSection.Y * 100 + y;
@@ -269,12 +269,30 @@ namespace AutoRL
 
             if (moved)
             {
-                if (RoadTile.Rock == this[0, 0])
+                CheckCollision(Player);
+            }
+
+            List<EnemyCar> copyEnemies = Enemies.ToList();
+
+
+            foreach (EnemyCar enemey in copyEnemies)
+            {
+               moved = enemey.UpdatePhase(phase, Player);
+                if (moved)
                 {
-                    Player.Collision();
+                    CheckCollision(enemey);
                 }
+
             }
         }
 
+        void CheckCollision(Car car)
+        {
+            if (RoadTile.Rock == this[car.X1, car.Y1])
+            {
+                car.Collision();
+            }
+
+        }
     }
 }

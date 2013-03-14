@@ -12,7 +12,7 @@ namespace AutoRL
         {
 
             RoadDisplayControl = new RoadDisplayControl(this);
-            RoadDisplayControl.Resize(80, 60);
+            RoadDisplayControl.Resize(100, 50);
 
             //var boxWidget = new BoxWidget(RoadDisplayControl);
             //boxWidget.Compact();
