@@ -25,11 +25,13 @@ namespace AutoRL
         public Car(String name)
         {
             Name = name;
-            Speed = 7;
             MaxSpeed = 10;
+        }
 
+        public void Initialize()
+        {
+            Speed = 7;
             Heading = Math.PI / 2;
-
             Armor = 50;
         }
 

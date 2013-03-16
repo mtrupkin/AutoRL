@@ -14,6 +14,8 @@ namespace AutoRL
 
         public bool Complete { get; set; }
 
+        public bool EndGame{ get; set; }
+
         public Road Road { get; set; }
 
         public int MaxPhase { get; protected set; }
@@ -23,6 +25,7 @@ namespace AutoRL
         {
             Pause = true;
             Complete = false;
+            EndGame = false;
 
             CurrentPhase = 0;
             MaxPhase = 9;
@@ -32,6 +35,13 @@ namespace AutoRL
 
         public void Initialize()
         {
+            Pause = true;
+            Complete = false;
+            EndGame = false;
+
+            CurrentPhase = 0;
+            MaxPhase = 9;
+
             Road.Initialize();
         }
 
@@ -50,6 +60,7 @@ namespace AutoRL
                     {
                         step -= timeStep;
                         NextPhase();
+                        EndGame = CheckEndgame();
                     }
 
                 }
@@ -68,6 +79,16 @@ namespace AutoRL
 
             Road.UpdatePhase(CurrentPhase);
             step = 0;
+        }
+
+        public bool CheckEndgame()
+        {
+            if (Road.Player.Armor < 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         static int[,] phases = new int[10, 10] {

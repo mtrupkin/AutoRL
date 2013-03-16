@@ -64,6 +64,13 @@ namespace AutoRL
 
         }
 
+        public void EndGame()
+        {
+            MenuScreen.NewListWidget.SetEnabled(true);
+            MenuScreen.ContinueListWidget.SetEnabled(false);
+
+        }
+
         public AutoGame LoadGameFile(String filename)
         {
             return null;

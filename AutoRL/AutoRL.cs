@@ -43,6 +43,12 @@ namespace AutoRL
             // main loop
             do
             {
+                var ts = DateTime.Now.Subtract(lastUpdateTime);
+                if (ts.TotalMilliseconds > 100)
+                {
+                    Update();
+                    lastUpdateTime = DateTime.Now;
+                }
                 Shell.Render();
 
                 if (Shell.isClosed() || AutoGame.Complete)
@@ -74,9 +80,9 @@ namespace AutoRL
             Shell.Resize();
 
             // intialize game update tick
-            updateTimer = new Timer(100);
-            updateTimer.Elapsed += new ElapsedEventHandler(updateTimer_Elapsed);
-            updateTimer.Start();
+            //updateTimer = new Timer(100);
+            //updateTimer.Elapsed += new ElapsedEventHandler(updateTimer_Elapsed);
+            //updateTimer.Start();
 
             lastUpdateTime = DateTime.Now;
             lastDrawTime = DateTime.Now;
@@ -85,7 +91,7 @@ namespace AutoRL
         // clean-up
         private void Dispose()
         {
-            updateTimer.Stop();
+            //updateTimer.Stop();
 
             Shell.Dispose();
 

@@ -40,6 +40,13 @@ namespace AutoRL
             }
 
             AutoGameViewModel.Update(duration);
+
+            if (AutoGame.EndGame)
+            {
+                MainMenuViewModel.EndGame();
+                DisplayMainMenu();
+            }
+
         }                
 
         public void Quit()

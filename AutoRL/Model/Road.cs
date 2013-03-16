@@ -192,24 +192,24 @@ namespace AutoRL
         {
             Player = player;
 
-            Player.X = 50;
-            Player.Y = -50;
-
             Height = 100 * 100;
             Width = 100 * 100;
 
             Enemies = new List<EnemyCar>();
 
             RoadSections = new Dictionary<Point, RoadSection>();
-            InitializeSideOffsets();
-
-            
-
+            InitializeSideOffsets();           
         }
 
         public void Initialize()
         {
             RoadSections.Clear();
+            Enemies.Clear();
+
+            Player.X = 50;
+            Player.Y = -50;
+
+            Player.Initialize();
 
             var roadSection = new RoadSection();
 

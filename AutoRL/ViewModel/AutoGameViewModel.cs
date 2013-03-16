@@ -132,7 +132,7 @@ namespace AutoRL
         {
             AutoGameScreen.SpeedScreen.PhaseControl.CurrentPhase = MainViewModel.AutoGame.CurrentPhase;
             AutoGameScreen.SpeedScreen.SetSpeed(MainViewModel.AutoGame.Road.Player.Speed);
-            AutoGameScreen.CarScreen.SetCar(MainViewModel.AutoGame.Road.Player);                        
+            AutoGameScreen.CarScreen.SetCar(MainViewModel.AutoGame.Road.Player);
         }         
     }
 
